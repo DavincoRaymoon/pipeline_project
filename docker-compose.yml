@@ -1,0 +1,21 @@
+version: '3.7'
+
+network:
+    name: 'pipeline'
+    driver: 'bridge'
+
+services:
+    gitlab:
+        container_name: 'gitlab'
+        image: gitlab/gitlab-ce
+        networks: pipeline
+        hostname: gitlab
+        links:
+            - postgresql:postgresql
+            - redis:redis
+            - jenkins:jenkins
+
+    redis:
+        container_name: redis
+        image: redis:latest
+        
